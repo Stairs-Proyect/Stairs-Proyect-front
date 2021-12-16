@@ -42,13 +42,16 @@ const IndexUsuarios = () => {
                     <td>{u.apellido}</td>
                     <td>{u.correo}</td>
                     <td>{u.identificacion}</td>
+                    <td>{u.rol}</td>
+                    <td>{u.estado}</td>
+
                     {/*<td>{Enum_Rol[u.rol]}</td>
                     <td>{Enum_EstadoUsuario[u.estado]}</td>*/}
-                    {/*<td>
+                    <td>
                       <Link to={`/usuarios/editar/${u._id}`}>
                         <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
                       </Link>
-                    </td>*/}
+                    </td>
                   </tr>
                 );
 

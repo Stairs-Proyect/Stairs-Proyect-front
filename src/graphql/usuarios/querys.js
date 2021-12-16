@@ -1,16 +1,31 @@
 import {gql} from '@apollo/client';
 
-const GET_USUARIOS = gql `{
+const GET_USUARIOS = gql `
     query Usuarios{
-        _id
-        nombre
-        apellido
-        correo
-        estado
-        identificacion
-        rol
+        Usuarios{
+            _id
+            nombre
+            apellido
+            correo
+            estado
+            identificacion
+            rol
         }
     }
 `;
 
-export {GET_USUARIOS};  
+const GET_USUARIO = gql `
+    query($_id: String!) {
+        Usuario(_id: $_id) {
+            _id
+            nombre
+            apellido
+            correo
+            estado
+            identificacion
+            rol
+        }
+    }
+`;
+
+export {GET_USUARIOS, GET_USUARIO};  
