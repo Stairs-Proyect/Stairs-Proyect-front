@@ -4,20 +4,34 @@ import { Enum_Rol } from 'util/enums';
 import DropDown from 'components/Dropdown';
 import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hooks/useFormData';
-import {Link} from 'react-router-dom';
-import { REGISTRO } from 'graphql/auth/mutations';
+import { Link, useNavigate } from 'react-router-dom';
+import { REGISTRO } from 'graphql/Auth/mutations';
 import { useMutation } from '@apollo/client';
+import { useAuth } from 'context/authContext';
 
 const Registro = () => {
-    const { form, formData, updateFormData } = useFormData();
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+  const { form, formData, updateFormData } = useFormData();
 
-    const [registro, { data: dataMutation }] = useMutation(REGISTRO);
+  // falta capturar error de mutacion
+  // revisar si es requerido loading de mutacion
+  const [registro, { data: dataMutation }] = useMutation(REGISTRO);
 
   const submitForm = (e) => {
     e.preventDefault();
-    registro({ variables: 
-        formData });
-      };
+    registro({ variables: formData });
+  };
+
+  useEffect(() => {
+    if (dataMutation) {
+      if (dataMutation.registro.token) {
+        setToken(dataMutation.registro.token);
+        navigate('/');
+      }
+    }
+  }, [dataMutation, setToken, navigate]);
+
 
     return (
         <div className='flex flex-col h-full w-full items-center justify-center'>
