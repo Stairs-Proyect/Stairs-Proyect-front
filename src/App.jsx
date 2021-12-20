@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrivateLayout from 'layouts/PrivateLayout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from 'context/userContext';
@@ -16,12 +16,13 @@ import Login from 'pages/auth/login';
 import AuthLayout from 'layouts/AuthLayout';
 import {AuthContext} from 'context/authContext';
 import { setContext } from '@apollo/client/link/context';
+import jwt_decode from 'jwt-decode';
 
 // import PrivateRoute from 'components/PrivateRoute';
 
 const httpLink = createHttpLink({
-  // uri: 'https://servidor-gql-mintic.herokuapp.com/graphql',
-  uri: 'http://localhost:4000/graphql',
+  // uri: 'https://stairs-proyect.herokuapp.com/graphql',
+  uri: 'https://stairs-proyect.herokuapp.com/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -53,6 +54,21 @@ function App() {
       localStorage.removeItem('token');
     }
   };
+
+  useEffect(() => {
+    if (authToken) {
+      const decoded = jwt_decode(authToken);
+      setUserData({
+        _id: decoded._id,
+        nombre: decoded.nombre,
+        apellido: decoded.apellido,
+        identificacion: decoded.identificacion,
+        correo: decoded.correo,
+        rol: decoded.rol,
+        foto: decoded.foto,
+      });
+    }
+  }, [authToken]);
 
   return (
     <ApolloProvider client = {client}>

@@ -4,7 +4,7 @@ import { GET_USUARIOS } from 'graphql/usuarios/querys';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 //import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
-//import PrivateRoute from 'components/PrivateRoute';
+import PrivateRoute from 'components/PrivateRoute';
 
 const IndexUsuarios = () => {
   const { data, error, loading } = useQuery(GET_USUARIOS);
@@ -18,7 +18,7 @@ const IndexUsuarios = () => {
   if (loading) return <div>Cargando....</div>;
 
   return (
-    //<PrivateRoute roleList={['ADMINISTRADOR']}>
+    <PrivateRoute roleList={['ADMINISTRADOR']}>
       <div>
         Datos Usuarios:
         <table className='tabla'>
@@ -59,7 +59,7 @@ const IndexUsuarios = () => {
           </tbody>
         </table>
       </div>
-    //</PrivateRoute>
+    </PrivateRoute>
   );
 };
 
