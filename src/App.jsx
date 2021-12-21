@@ -21,8 +21,8 @@ import jwt_decode from 'jwt-decode';
 // import PrivateRoute from 'components/PrivateRoute';
 
 const httpLink = createHttpLink({
-  // uri: 'https://stairs-proyect.herokuapp.com/graphql',
-  uri: 'https://stairs-proyect.herokuapp.com/graphql',
+  // uri: 'https://servidor-gql-mintic.herokuapp.com/graphql',
+  uri: 'https://servidor-gql-mintic.herokuapp.com/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
